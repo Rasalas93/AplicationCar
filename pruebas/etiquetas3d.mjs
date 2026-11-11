@@ -68,3 +68,50 @@ for (const [ancho, alto] of PANTALLAS) {
     assert.deepEqual(errores, []);
   });
 }
+
+/** Mide punto, etiqueta y punto esperado (fracción del dibujo) de cada zona de la silueta visible. */
+function medirSilueta(zonas) {
+  const raiz = document.querySelector('.silueta:not([hidden])'), svg = raiz.querySelector('svg'), r = svg.getBoundingClientRect();
+  const caja = svg.getAttribute('viewBox').split(' ').map(Number), k = Math.min(r.width / caja[2], r.height / caja[3]);
+  const ox = r.left + (r.width - caja[2] * k) / 2, oy = r.top + (r.height - caja[3] * k) / 2, nav = document.getElementById('nav').getBoundingClientRect();
+  return [...raiz.querySelectorAll('.zona')].map(el => {
+    const f = zonas[raiz.dataset.tipo][el.dataset.zona], i = el.querySelector('i').getBoundingClientRect(), s = el.querySelector('span').getBoundingClientRect();
+    const toca = document.elementFromPoint((s.left + s.right) / 2, (s.top + s.bottom) / 2)?.closest('.zona')?.dataset.zona;
+    return { zona: `${raiz.dataset.tipo}/${el.dataset.zona}`, toca: toca && `${raiz.dataset.tipo}/${toca}`, izq: el.classList.contains('izq'), x: ox + f[0] * caja[2] * k, y: oy + f[1] * caja[3] * k, px: i.left + i.width / 2, py: i.top + i.height / 2, s: { l: s.left, r: s.right, t: s.top, b: s.bottom }, navTop: nav.top };
+  });
+}
+
+test('etiquetas de la silueta (moto y coche) sobre su punto en vertical y apaisado', async () => {
+  const { SILUETAS } = await import('../src/app/presentadores/silueta.js');
+  const zonas = Object.fromEntries(Object.entries(SILUETAS).map(([t, s]) => [t, s.zonas]));
+  const fallos = [];
+  let medidas = 0;
+  for (const [ancho, alto] of PANTALLAS) {
+    const pagina = await navegador.newPage({ viewport: { width: ancho, height: alto } });
+    await pagina.goto(`${url}?hoy=2026-11-11&limpio&sin-sw`);
+    await pagina.waitForFunction('window.__listo3d === true', null, { timeout: 90000 });
+    await pagina.evaluate(() => window.__coche3d.activar(false));
+    for (const tipo of ['moto', 'coche']) {
+      await pagina.click('#btnGaraje');
+      await pagina.click(`#hoja .tipos [data-tipo="${tipo}"]`);
+      await pagina.fill('#gNombre', `Prueba ${tipo}`); await pagina.fill('#gKm', '21000');
+      await pagina.click('#gGuardar');
+      await pagina.waitForSelector(`.escenario.plano .silueta[data-tipo="${tipo}"]:not([hidden]) .zona`);
+      await pagina.waitForTimeout(300);
+      const vistas = [];
+      for (const z of await pagina.evaluate(medirSilueta, zonas)) {
+        medidas++;
+        const d = Math.hypot(z.px - z.x, z.py - z.y), hueco = z.izq ? z.px - z.s.r : z.s.l - z.px;
+        if (d > 4) fallos.push(`${ancho} ${z.zona}: punto a ${d.toFixed(1)} px de su sitio`);
+        if (hueco < 0 || hueco > 16) fallos.push(`${ancho} ${z.zona}: etiqueta a ${hueco.toFixed(1)} px del punto`);
+        if (z.toca !== z.zona) fallos.push(`${ancho} ${z.zona}: tocar su etiqueta abre ${z.toca}`);
+        if (z.s.b > z.navTop) fallos.push(`${ancho} ${z.zona}: etiqueta bajo la barra`);
+        for (const o of vistas) if (z.s.l < o.s.r && o.s.l < z.s.r && z.s.t < o.s.b && o.s.t < z.s.b) fallos.push(`${ancho} ${z.zona}: etiqueta pisa la de ${o.zona}`);
+        vistas.push(z);
+      }
+    }
+    await pagina.close();
+  }
+  assert.deepEqual(fallos, []);
+  assert.ok(medidas >= 30, `zonas medidas: ${medidas}`);
+});

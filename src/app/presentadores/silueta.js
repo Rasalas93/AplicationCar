@@ -64,7 +64,7 @@ export function crearSilueta({ contenedor, tipo, alTocarZona }) {
     for (const p of puntos) { p.x = ox + p.f[0] * caja[2] * k; p.y = oy + p.f[1] * caja[3] * k; p.izq = p.x > b.width * 0.55; p.dy = 0; p.el.classList.toggle('izq', p.izq); }
     const orden = [...puntos].sort((a, c) => a.y - c.y), ancho = p => { const w = p.el.querySelector('span').offsetWidth + 12; return p.izq ? [p.x - w, p.x] : [p.x, p.x + w]; };
     orden.forEach((p, i) => { const [a0, a1] = ancho(p); for (let j = 0; j < i; j++) { const o = orden[j], [b0, b1] = ancho(o); if (a0 < b1 && b0 < a1 && p.y + p.dy - (o.y + o.dy) < 38) p.dy = o.y + o.dy + 38 - p.y; } });
-    for (const p of puntos) { p.el.style.transform = `translate(${p.izq ? `calc(${p.x.toFixed(1)}px - 100%)` : `${p.x.toFixed(1)}px`},${p.y.toFixed(1)}px)`; p.el.style.setProperty('--dy', `${p.dy.toFixed(1)}px`); }
+    for (const p of puntos) { p.el.style.transform = `translate(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px)`; p.el.style.setProperty('--dy', `${p.dy.toFixed(1)}px`); }
   }
   new ResizeObserver(colocar).observe(raiz);
 
