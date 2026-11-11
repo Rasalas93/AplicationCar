@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.apk
+*.aab
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+herramientas/focus/salida/
+.DS_Store

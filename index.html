@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07080C">
+<meta name="description" content="Copiloto: el coche, sus fechas, papeles y gastos. Funciona sin conexión.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="iconos/icono.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="iconos/icono-192.png">
+<title>Copiloto</title>
+</head>
+<body>
+<div class="app" id="app">
+  <section class="pantalla" id="inicio" data-pantalla="inicio"></section>
+  <section class="pantalla" id="gastos" data-pantalla="gastos" hidden></section>
+  <section class="pantalla" id="guantera" data-pantalla="guantera" hidden></section>
+  <nav class="nav" id="nav"></nav>
+  <div class="sombra" id="sombra"></div>
+  <section class="hoja" id="hoja" role="dialog" aria-modal="true"></section>
+  <div class="aviso" id="aviso" role="status"></div>
+</div>
+<script type="module" src="/src/app/main.js"></script>
+</body>
+</html>

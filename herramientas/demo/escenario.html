@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Copiloto · demo</title>
+<style>
+@font-face{font-family:Chakra;src:url(/fuentes/chakra-petch-latin-700-normal.woff2)}
+@font-face{font-family:Chakra;font-weight:500;src:url(/fuentes/chakra-petch-latin-500-normal.woff2)}
+@font-face{font-family:Inter;src:url(/fuentes/inter-latin-500-normal.woff2)}
+*{box-sizing:border-box;margin:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:radial-gradient(1200px 700px at 50% 0%,#2a1a10,#0a0a10 60%,#050508);color:#f3ede6;font-family:Inter,sans-serif}
+.telefono{position:absolute;left:741px;top:69px;width:438px;height:941px;border-radius:58px;background:#0b0b0f;box-shadow:0 0 0 2px #2c2a30,0 0 0 9px #141318,0 40px 120px #000c,0 0 160px #f08a1c22}
+.pantalla{position:absolute;left:13px;top:13px;width:412px;height:915px;border-radius:46px;overflow:hidden}
+iframe{width:412px;height:915px;border:0;display:block;background:#07080c}
+.capa{position:absolute;inset:0;pointer-events:none}
+#splash{position:absolute;inset:0;background:#07080c;display:grid;place-items:center;transition:opacity .45s}
+#splash img{width:120px;height:120px;border-radius:27px}
+#splash b{position:absolute;top:560px;width:100%;text-align:center;font:700 26px Chakra;letter-spacing:.3em;color:#ffb347}
+.dedo{position:absolute;width:46px;height:46px;margin:-23px;border-radius:50%;background:#fff3;border:2px solid #fffb;box-shadow:0 0 18px #fff6;opacity:0;transition:opacity .15s}
+.onda{position:absolute;width:20px;height:20px;margin:-10px;border-radius:50%;border:3px solid #fff;animation:onda .6s ease-out forwards}
+@keyframes onda{from{transform:scale(.4);opacity:1}to{transform:scale(4);opacity:0}}
+.titulo{position:absolute;left:120px;top:150px;font:700 64px Chakra;letter-spacing:.06em}
+.titulo small{display:block;font:500 22px Inter;letter-spacing:0;color:#bdb3a8;margin-top:10px}
+ol{position:absolute;left:120px;top:360px;list-style:none;padding:0;width:520px}
+li{display:flex;gap:22px;align-items:center;font:500 30px Chakra;color:#6d665f;margin:0 0 34px;transition:color .3s,transform .3s;transform-origin:left}
+li i{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:2px solid currentColor;font-style:normal;font-size:24px;flex:none}
+li.on{color:#ffb347;transform:scale(1.06)}
+li.hecho{color:#b8aea4}
+.der{position:absolute;right:120px;top:380px;width:430px;font:500 22px Inter;color:#bdb3a8;line-height:1.6}
+.der b{display:block;font:700 26px Chakra;color:#f3ede6;margin-bottom:6px;letter-spacing:.04em}
+.der p{margin-bottom:34px}
+.sem{display:inline-block;width:14px;height:14px;border-radius:50%;margin:0 8px 0 2px;vertical-align:middle}
+#negro{position:absolute;inset:0;pointer-events:none;background:#000;opacity:0;transition:opacity .4s}
+</style>
+</head>
+<body>
+<div class="titulo">COPILOTO<small>Tu coche, sin conexión · Android</small></div>
+<ol id="pasos">
+  <li><i>1</i>Abre la app</li>
+  <li><i>2</i>Gira el Focus con el dedo</li>
+  <li><i>3</i>Toca una zona roja</li>
+  <li><i>4</i>Ve a Gastos</li>
+</ol>
+<div class="der">
+  <p><b>Focus MK3 en 3D</b>Pintura, cristal y cromo con la luz de estudio del render.</p>
+  <p><b>Zonas a 3 meses</b><span class="sem" style="background:#ff4d5e"></span>vence ya <span class="sem" style="background:#ffb020"></span>pronto <span class="sem" style="background:#3ddc84"></span>en orden</p>
+  <p><b>Sin servidor</b>Todo se guarda en el móvil.</p>
+</div>
+<div class="telefono"><div class="pantalla" id="pantalla">
+  <iframe id="app"></iframe>
+  <div class="capa" id="capa"><div id="splash"><img src="/iconos/icono.svg" alt=""><b>COPILOTO</b></div><div class="dedo" id="dedo"></div></div>
+</div></div>
+<div id="negro"></div>
+</body>
+</html>

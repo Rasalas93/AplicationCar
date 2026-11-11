@@ -1,0 +1,630 @@
+{
+ "$comentario": "Primer vehículo de la app. Datos del coche: informe DGT (10/11/2026) y ficha técnica. Gastos con ejemplo=true son de ejemplo. Sin titular, bastidor, domicilio ni póliza.",
+ "version": 1,
+ "hoyDatos": "2026-11-11",
+ "vehiculos": [
+  {
+   "id": "focus",
+   "etiqueta": "Primer vehículo",
+   "matricula": "3217 HDV",
+   "marca": "Ford",
+   "modelo": "Focus MK3",
+   "version": "1.6 EcoBoost 150",
+   "anio": 2011,
+   "carroceria": "5 puertas portón",
+   "motor": {
+    "cilindrada": 1596,
+    "kw": 110,
+    "cv": 150,
+    "combustible": "gasolina",
+    "cvf": 11.63,
+    "euro": "Euro 5",
+    "co2": 139,
+    "etiqueta": "C"
+   },
+   "neumaticos": "205/55 R16 91V",
+   "pintura": {
+    "nombre": "Rojo Candy",
+    "color": "#8E0A14",
+    "confirmado": false,
+    "fuente": "Supuesto: ninguna referencia muestra el color real"
+   },
+   "odometro": {
+    "km": 165360,
+    "fecha": "2026-11-02",
+    "fuente": "DGT · ITV 02/11/2026"
+   },
+   "kmDia": 14.6,
+   "kmDiaFuente": "5.004 km en 342 días (ITV 25/11/2025 → 02/11/2026)",
+   "consumo": {
+    "l100": 7.5,
+    "ultimo": 7.1,
+    "repostajes": 6,
+    "ejemplo": true,
+    "meses": [
+     [
+      "sep",
+      8.2
+     ],
+     [
+      "oct",
+      7.3
+     ],
+     [
+      "oct",
+      7.9
+     ],
+     [
+      "nov",
+      6.5
+     ],
+     [
+      "nov",
+      6.7
+     ],
+     [
+      "nov",
+      5.9
+     ]
+    ]
+   },
+   "tareas": [
+    {
+     "clave": "correa",
+     "titulo": "Correa de distribución",
+     "zona": "distribucion",
+     "detalle": "A 123.000 km, según concesionario",
+     "regla": {
+      "tipo": "sin-dato"
+     },
+     "pendiente": "Justificante pendiente",
+     "fuente": {
+      "tipo": "verbal",
+      "quien": "concesionario"
+     }
+    },
+    {
+     "clave": "ivtm",
+     "titulo": "IVTM 2027",
+     "zona": "impuestos",
+     "detalle": "Devengo 1 ene · 34,08–68,16 €",
+     "regla": {
+      "tipo": "fecha",
+      "fecha": "2027-01-01"
+     },
+     "gasto": "ivtm-2027",
+     "fuente": {
+      "tipo": "norma",
+      "cita": "TRLRHL arts. 95 y 96",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2004-4214"
+     }
+    },
+    {
+     "clave": "aceite",
+     "titulo": "Aceite y filtros",
+     "zona": "motor",
+     "detalle": "Revisión anual o cada 20.000 km",
+     "regla": {
+      "tipo": "fecha-o-km",
+      "fecha": "2027-01-15",
+      "km": 170000
+     },
+     "gasto": "aceite-2027",
+     "ejemplo": true,
+     "fuente": {
+      "tipo": "ejemplo",
+      "cita": "Intervalo de ejemplo hasta tener el libro de mantenimiento"
+     }
+    },
+    {
+     "clave": "itv",
+     "titulo": "ITV",
+     "zona": "itv",
+     "detalle": "Antes del 25 nov 2027",
+     "regla": {
+      "tipo": "fecha",
+      "fecha": "2027-11-25"
+     },
+     "gasto": "itv-2027",
+     "fuente": {
+      "tipo": "documento",
+      "cita": "Informe DGT 10/11/2026"
+     }
+    },
+    {
+     "clave": "seguro",
+     "titulo": "Seguro",
+     "zona": "seguro",
+     "detalle": "Vigente · DGT, 10 nov 2026",
+     "regla": {
+      "tipo": "vigente"
+     },
+     "fuente": {
+      "tipo": "documento",
+      "cita": "Informe DGT 10/11/2026: vigente; renovación a confirmar"
+     }
+    }
+   ],
+   "gastos": [
+    {
+     "fecha": "2026-08-19",
+     "importe": 3.2,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-08-22",
+     "importe": 30,
+     "categoria": "combustible",
+     "concepto": "Gasolina 95",
+     "fuente": "manual",
+     "recurrente": null,
+     "litros": 18.29,
+     "km": 164308,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-08-26",
+     "importe": 7.45,
+     "categoria": "peajes",
+     "concepto": "Peaje",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-08-29",
+     "importe": 4.1,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-09-02",
+     "importe": 2.6,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-09-05",
+     "importe": 9,
+     "categoria": "otros",
+     "concepto": "Lavado",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-09-08",
+     "importe": 30,
+     "categoria": "combustible",
+     "concepto": "Gasolina 95",
+     "fuente": "manual",
+     "recurrente": null,
+     "litros": 18.18,
+     "km": 164556,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-09-12",
+     "importe": 11.5,
+     "categoria": "mantenimiento",
+     "concepto": "Bombilla H7",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-09-16",
+     "importe": 3.8,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-09-19",
+     "importe": 12.9,
+     "categoria": "peajes",
+     "concepto": "Peaje",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-09-25",
+     "importe": 35,
+     "categoria": "combustible",
+     "concepto": "Gasolina 95",
+     "fuente": "manual",
+     "recurrente": null,
+     "litros": 21.08,
+     "km": 164804,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-09-26",
+     "importe": 5,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-09-30",
+     "importe": 2.6,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-10-03",
+     "importe": 7.45,
+     "categoria": "peajes",
+     "concepto": "Peaje",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-10-07",
+     "importe": 4.4,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-10-10",
+     "importe": 9,
+     "categoria": "otros",
+     "concepto": "Lavado",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-10-12",
+     "importe": 30,
+     "categoria": "combustible",
+     "concepto": "Gasolina 95",
+     "fuente": "manual",
+     "recurrente": null,
+     "litros": 17.96,
+     "km": 165052,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-10-17",
+     "importe": 24.9,
+     "categoria": "mantenimiento",
+     "concepto": "Escobillas",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-10-21",
+     "importe": 3.2,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-10-24",
+     "importe": 12.9,
+     "categoria": "peajes",
+     "concepto": "Peaje",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-10-29",
+     "importe": 30,
+     "categoria": "combustible",
+     "concepto": "Gasolina 95",
+     "fuente": "manual",
+     "recurrente": null,
+     "litros": 17.91,
+     "km": 165300,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-10-31",
+     "importe": 4.1,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-11-02",
+     "importe": 45,
+     "categoria": "itv",
+     "concepto": "ITV",
+     "fuente": "manual",
+     "recurrente": {
+      "cadaMeses": 12
+     },
+     "km": 165360,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-11-04",
+     "importe": 2.6,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-11-07",
+     "importe": 7.45,
+     "categoria": "peajes",
+     "concepto": "Peaje",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    },
+    {
+     "fecha": "2026-11-10",
+     "importe": 3.8,
+     "categoria": "peajes",
+     "concepto": "Aparcamiento",
+     "fuente": "manual",
+     "recurrente": null,
+     "ejemplo": true
+    }
+   ],
+   "programados": [
+    {
+     "id": "ivtm-2027",
+     "concepto": "IVTM",
+     "categoria": "impuestos",
+     "fecha": "2027-01-01",
+     "importe": {
+      "min": 34.08,
+      "max": 68.16
+     },
+     "cadaMeses": 12,
+     "fuente": "Devengo 1 ene · 11,63 CVF: 34,08 € × coeficiente municipal de 1 a 2 (TRLRHL art. 95)"
+    },
+    {
+     "id": "aceite-2027",
+     "concepto": "Aceite y filtros",
+     "categoria": "mantenimiento",
+     "fecha": "2027-01-15",
+     "km": 170000,
+     "importe": {
+      "min": 90,
+      "max": 150
+     },
+     "ejemplo": true,
+     "fuente": "Regla «fecha o km, lo que llegue antes»"
+    },
+    {
+     "id": "itv-2027",
+     "concepto": "ITV",
+     "categoria": "itv",
+     "fecha": "2027-11-25",
+     "importe": {
+      "min": 45,
+      "max": 45
+     },
+     "cadaMeses": 12,
+     "ejemplo": true,
+     "fuente": "DGT 10/11/2026: antes del 25/11/2027"
+    },
+    {
+     "id": "seguro",
+     "concepto": "Seguro",
+     "categoria": "seguro",
+     "fecha": null,
+     "importe": null,
+     "cadaMeses": 12,
+     "fuente": "DGT 10/11/2026: vigente; renovación y prima a confirmar"
+    }
+   ],
+   "precioLitro": {
+    "valor": 1.679,
+    "fecha": "2026-11-11",
+    "fuente": "Mediana nacional gasolina 95 E5, Geoportal Gasolineras (MITECO)"
+   },
+   "documentos": {
+    "grupos": [
+     {
+      "nombre": "Tráfico",
+      "docs": [
+       {
+        "id": "dgt",
+        "nombre": "Informe de la DGT",
+        "meta": "10/11/2026 · captura · 3 páginas",
+        "tipo": "pdf",
+        "accion": "abrir"
+       },
+       {
+        "id": "permiso",
+        "nombre": "Permiso de circulación",
+        "meta": "Obligatorio a bordo",
+        "falta": true
+       }
+      ]
+     },
+     {
+      "nombre": "ITV y ficha",
+      "docs": [
+       {
+        "id": "tarjeta",
+        "nombre": "Tarjeta ITV con historial",
+        "meta": "10/11/2026 · foto · 9 inspecciones",
+        "tipo": "foto"
+       },
+       {
+        "id": "ficha",
+        "nombre": "Ficha técnica",
+        "meta": "24/05/2011 · foto",
+        "tipo": "foto"
+       },
+       {
+        "id": "itv",
+        "nombre": "Informe ITV 02/11/2026",
+        "meta": "Sin foto todavía · tiene QR",
+        "tipo": "qr",
+        "accion": "qr",
+        "extra": true
+       }
+      ]
+     },
+     {
+      "nombre": "Seguro e impuestos",
+      "docs": [
+       {
+        "id": "seguro",
+        "nombre": "Póliza del seguro",
+        "meta": "Vencimiento y asistencia",
+        "falta": true
+       },
+       {
+        "id": "ivtm",
+        "nombre": "Recibo del IVTM",
+        "meta": "Cierra el aviso anual",
+        "falta": true
+       }
+      ]
+     },
+     {
+      "nombre": "Mantenimiento",
+      "docs": [
+       {
+        "id": "correa",
+        "nombre": "Factura de la correa",
+        "meta": "123.000 km, de palabra",
+        "falta": true
+       },
+       {
+        "id": "libro",
+        "nombre": "Libro o facturas de taller",
+        "meta": "Prueba de lo hecho",
+        "falta": true
+       },
+       {
+        "id": "manual",
+        "nombre": "Manual del propietario",
+        "meta": "Intervalos y presiones",
+        "falta": true
+       }
+      ]
+     },
+     {
+      "nombre": "Otros",
+      "docs": [
+       {
+        "id": "anuncio",
+        "nombre": "Anuncio del coche",
+        "meta": "10/11/2026 · captura",
+        "tipo": "foto",
+        "extra": true
+       }
+      ]
+     }
+    ],
+    "informeDgt": {
+     "titulo": "Informe de la DGT",
+     "fecha": "10/11/2026 18:48",
+     "paginas": 3,
+     "campos": [
+      {
+       "k": "ITV",
+       "v": "Vigente",
+       "d": "Última 02/11/2026 · favorable",
+       "pag": 1,
+       "estado": "ok"
+      },
+      {
+       "k": "Próxima ITV",
+       "v": "25/11/2027",
+       "d": "Estación 08011",
+       "pag": 1
+      },
+      {
+       "k": "Odómetro",
+       "v": "165.360 km",
+       "d": "Leído el 02/11/2026",
+       "pag": 2
+      },
+      {
+       "k": "Seguro",
+       "v": "Vigente",
+       "d": "Según la DGT",
+       "pag": 1,
+       "estado": "ok"
+      },
+      {
+       "k": "Inspecciones",
+       "v": "10",
+       "d": "2015-2026 · 2 con defectos",
+       "pag": 1
+      },
+      {
+       "k": "Titulares",
+       "v": "2",
+       "d": "Actual desde 23/10/2026",
+       "pag": 1
+      },
+      {
+       "k": "Motor",
+       "v": "1.596 cm³ · 110 kW",
+       "d": "Gasolina · 11,63 CVF",
+       "pag": 2
+      },
+      {
+       "k": "Emisiones",
+       "v": "Etiqueta C",
+       "d": "Euro 5 · CO₂ 139 g/km",
+       "pag": 2
+      },
+      {
+       "k": "Masas",
+       "v": "MMA 1.900 kg",
+       "d": "Tara 1.258 kg · 5 plazas",
+       "pag": 2
+      },
+      {
+       "k": "Euro NCAP 2012",
+       "v": "92 · 82 · 72 · 71 %",
+       "d": "Nota global: a verificar",
+       "pag": 3,
+       "estado": "falta"
+      }
+     ],
+     "avisos": [
+      "Página 3 cortada: falta «Elementos de seguridad»",
+      "El documento no va en la app: se guarda solo en tu móvil"
+     ]
+    }
+   },
+   "consejo": {
+    "fuente": "DGT",
+    "texto": "En gasolina, inicia la marcha nada más arrancar: el motor se calienta en movimiento."
+   }
+  }
+ ]
+}
