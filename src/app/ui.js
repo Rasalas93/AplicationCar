@@ -27,14 +27,15 @@ export function abrirHoja(html, { alCerrar, clase = '' } = {}) {
   return h;
 }
 
-/** Cierra la hoja (desde la app; el atrás del sistema llega por popstate). */
+/** Cierra la hoja (el atrás del sistema llega por popstate); la promesa se cumple cuando el historial ya volvió. */
 export function cerrarHoja(desdeHistoria = false) {
   const h = $('hoja');
-  if (!h.classList.contains('on')) return;
+  if (!h.classList.contains('on')) return Promise.resolve();
   h.classList.remove('on'); $('sombra').classList.remove('on');
   tocar('cerrar');
   const f = alCerrarHoja; alCerrarHoja = null; f && f();
-  if (!desdeHistoria && history.state && history.state.hoja) history.back();
+  if (desdeHistoria || !(history.state && history.state.hoja)) return Promise.resolve();
+  return new Promise(listo => { addEventListener('popstate', () => listo(), { once: true }); history.back(); });
 }
 
 export function hojaAbierta() { return $('hoja').classList.contains('on'); }

@@ -54,7 +54,7 @@ export function pantallaInicio({ raiz, cliente, temaActual, ir, abrirAspecto }) 
       <div class="kv"><span>Qué</span><b>${esc(f.detalle)}</b>${f.vence && f.vence.km ? `<span>Faltan</span><b>${km(f.faltan.km)} a ${num(vm.vehiculo.kmDia, 1)} km/día</b>` : ''}<span>Fuente</span><b>${fuente}</b></div>
       <div class="acciones">${f.gasto ? `<button class="boton pri" data-ir="gastos">Ver en Gastos</button>` : `<button class="boton pri" data-ir="guantera">Ir a la Guantera</button>`}<button class="boton" data-cerrar>Cerrar</button></div></div>`, { clase: 'hTarea' });
     document.querySelector('#hoja [data-cerrar]').onclick = () => { tocar('toque'); cerrarHoja(); };
-    document.querySelector('#hoja [data-ir]').onclick = e => { tocar('toque'); const d = e.currentTarget.dataset.ir; cerrarHoja(); ir(d); };
+    document.querySelector('#hoja [data-ir]').onclick = e => { tocar('toque'); const d = e.currentTarget.dataset.ir; cerrarHoja().then(() => ir(d)); };
   }
 
   async function pintar() {

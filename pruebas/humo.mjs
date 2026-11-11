@@ -52,6 +52,16 @@ test('tocar una zona roja abre su tarea', async () => {
   await pagina.waitForFunction(() => !document.getElementById('hoja').classList.contains('on'));
 });
 
+test('«Ver en Gastos» desde una tarea deja abierta la pantalla Gastos', async () => {
+  await pagina.click('#nav [data-nav="inicio"]');
+  await pagina.locator('.zonas3d .zona[data-zona="motor"]').click({ force: true });
+  await pagina.waitForSelector('#hoja.on [data-ir="gastos"]');
+  await pagina.click('#hoja [data-ir="gastos"]');
+  await pagina.waitForTimeout(600);
+  assert.equal(await pagina.evaluate(() => document.getElementById('gastos').hidden), false);
+  assert.equal(await pagina.evaluate(() => location.hash), '#gastos');
+});
+
 for (const [clave, texto] of [['gastos', 'Gastado'], ['guantera', 'documentos'], ['inicio', 'Odómetro']]) {
   test(`la pantalla ${clave} abre desde la barra`, async () => {
     await pagina.click(`#nav [data-nav="${clave}"]`);
