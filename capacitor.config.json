@@ -1,0 +1,6 @@
+{
+  "appId": "es.copiloto.coche",
+  "appName": "Copiloto",
+  "webDir": "dist",
+  "android": { "backgroundColor": "#07080C" }
+}
