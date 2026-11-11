@@ -6,6 +6,8 @@
   {
    "id": "focus",
    "etiqueta": "Primer vehículo",
+   "tipo": "coche",
+   "presentador": "focus3d",
    "matricula": "3217 HDV",
    "marca": "Ford",
    "modelo": "Focus MK3",
@@ -81,6 +83,11 @@
      "fuente": {
       "tipo": "verbal",
       "quien": "concesionario"
+     },
+     "intervalo": {
+      "meses": 120,
+      "km": 150000,
+      "cita": "Orientativo RACE [M5]: 150.000 km o 10 años; manda el libro de servicio"
      }
     },
     {
@@ -114,6 +121,10 @@
      "fuente": {
       "tipo": "ejemplo",
       "cita": "Intervalo de ejemplo hasta tener el libro de mantenimiento"
+     },
+     "intervalo": {
+      "meses": 12,
+      "km": 20000
      }
     },
     {
@@ -517,13 +528,15 @@
         "id": "correa",
         "nombre": "Factura de la correa",
         "meta": "123.000 km, de palabra",
-        "falta": true
+        "falta": true,
+        "llenaVisita": "correa"
        },
        {
         "id": "libro",
         "nombre": "Libro o facturas de taller",
         "meta": "Prueba de lo hecho",
-        "falta": true
+        "falta": true,
+        "llenaVisita": "*"
        },
        {
         "id": "manual",
@@ -624,7 +637,100 @@
    "consejo": {
     "fuente": "DGT",
     "texto": "En gasolina, inicia la marcha nada más arrancar: el motor se calienta en movimiento."
-   }
+   },
+   "ficha": [
+    {
+     "grupo": "Vehículo",
+     "campos": [
+      {
+       "clave": "motor",
+       "etiqueta": "Motor",
+       "valor": "1.596 cm³ · 110 kW (150 CV) · gasolina",
+       "fuente": {
+        "tipo": "documento",
+        "cita": "Ficha técnica 24/05/2011"
+       }
+      },
+      {
+       "clave": "neumaticos",
+       "etiqueta": "Neumáticos",
+       "valor": "205/55 R16 91V",
+       "fuente": {
+        "tipo": "documento",
+        "cita": "Ficha técnica 24/05/2011"
+       }
+      },
+      {
+       "clave": "alternativos",
+       "etiqueta": "Medidas alternativas",
+       "valor": "215/50 R17 91V · 215/55 R16 93V",
+       "fuente": {
+        "tipo": "documento",
+        "cita": "Ficha técnica 24/05/2011"
+       }
+      },
+      {
+       "clave": "aceite",
+       "etiqueta": "Aceite y capacidad",
+       "valor": "5W-30 · unos 4,1 L con filtro",
+       "fuente": {
+        "tipo": "ejemplo",
+        "cita": "A verificar en el manual del propietario"
+       }
+      },
+      {
+       "clave": "presiones",
+       "etiqueta": "Presiones",
+       "valor": "2,3 bar delante · 2,1 bar detrás",
+       "fuente": {
+        "tipo": "ejemplo",
+        "cita": "A verificar en la pegatina del marco de la puerta"
+       }
+      },
+      {
+       "clave": "masas",
+       "etiqueta": "Masas",
+       "valor": "MMA 1.900 kg · tara 1.258 kg · 5 plazas",
+       "fuente": {
+        "tipo": "documento",
+        "cita": "Informe DGT 10/11/2026"
+       }
+      },
+      {
+       "clave": "correa",
+       "etiqueta": "Correa de distribución",
+       "valor": "Cambiada a 123.000 km",
+       "fuente": {
+        "tipo": "verbal",
+        "cita": "Concesionario, de palabra"
+       }
+      }
+     ]
+    },
+    {
+     "grupo": "Contactos",
+     "campos": [
+      {
+       "clave": "taller",
+       "etiqueta": "Taller",
+       "valor": "",
+       "tel": true
+      },
+      {
+       "clave": "seguro",
+       "etiqueta": "Asistencia del seguro",
+       "valor": "",
+       "tel": true
+      },
+      {
+       "clave": "grua",
+       "etiqueta": "Grúa",
+       "valor": "",
+       "tel": true
+      }
+     ]
+    }
+   ]
   }
  ]
 }

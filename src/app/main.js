@@ -3,6 +3,7 @@ import './estilos/base.css';
 import './estilos/inicio.css';
 import './estilos/gastos.css';
 import './estilos/guantera.css';
+import './estilos/taller.css';
 import semilla from '../../datos/semilla.json';
 import { crearApi } from '../nucleo/api.js';
 import { repositorioLocal, almacenArchivos } from '../nucleo/almacen.js';
@@ -14,12 +15,15 @@ import { usarSonido, tocar, abrirHoja, cerrarHoja, hojaAbierta, icono } from './
 import { pantallaInicio } from './pantallas/inicio.js';
 import { pantallaGastos } from './pantallas/gastos.js';
 import { pantallaGuantera } from './pantallas/guantera.js';
+import { pantallaTaller } from './pantallas/taller.js';
+import { abrirGaraje } from './pantallas/garaje.js';
 
 const q = new URLSearchParams(location.search);
 const repo = repositorioLocal(q.has('limpio') ? `demo${Date.now()}:` : 'coche:v1:');
 const hoy = () => q.get('hoy') || hoyLocal();
 const api = crearApi({ semilla, repo, archivos: almacenArchivos(), hoy });
-const cliente = clienteLocal(api, semilla.vehiculos[0].id);
+const cliente = clienteLocal(api, (await api.despachar({ ruta: '/vehiculos' })).cuerpo.activo);
+navigator.storage?.persist?.().catch(() => {});
 const sonido = reproductor();
 usarSonido(sonido);
 
@@ -40,21 +44,21 @@ function abrirAspecto() {
 }
 
 const pantallas = {
-  inicio: pantallaInicio({ raiz: document.getElementById('inicio'), cliente, temaActual, ir, abrirAspecto }),
+  inicio: pantallaInicio({ raiz: document.getElementById('inicio'), cliente, temaActual, ir, abrirAspecto, abrirGaraje: () => abrirGaraje({ cliente }) }),
   gastos: pantallaGastos({ raiz: document.getElementById('gastos'), cliente, temaActual }),
-  guantera: pantallaGuantera({ raiz: document.getElementById('guantera'), cliente, temaActual })
+  guantera: pantallaGuantera({ raiz: document.getElementById('guantera'), cliente, temaActual }),
+  taller: pantallaTaller({ raiz: document.getElementById('taller'), cliente, temaActual })
 };
 let actual = null, faltanDocs = 0;
 
 function pintarNav() {
-  const V = T.voz, items = [['inicio', V.inicio], ['gastos', V.gastos], ['anotar', V.anotar], ['guantera', V.guantera], ['aspecto', 'Aspecto']];
+  const V = T.voz, items = [['inicio', V.inicio], ['gastos', V.gastos], ['anotar', V.anotar], ['guantera', V.guantera], ['taller', V.taller]];
   const nav = document.getElementById('nav');
   nav.innerHTML = items.map(([k, txt]) => `<button data-nav="${k}" class="${k === 'anotar' ? 'fab' : k === actual ? 'on' : ''}" aria-label="${txt}"><i>${icono(k)}${k === 'guantera' && faltanDocs ? `<u>${faltanDocs}</u>` : ''}</i>${txt}</button>`).join('');
   nav.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => {
     tocar('toque');
     const k = b.dataset.nav;
     if (k === 'anotar') { if (actual !== 'gastos') ir('gastos'); setTimeout(() => pantallas.gastos.abrirAlta(), actual === 'gastos' ? 0 : 60); }
-    else if (k === 'aspecto') abrirAspecto();
     else ir(k);
   });
 }
@@ -87,5 +91,5 @@ aplicarTema(T); sonido.usarTema(T);
 await document.fonts.ready;
 await refrescar();
 mostrar();
-window.__app = { pantallas, cliente, sonido, ponerTema, ir, listo: true };
+window.__app = { pantallas, cliente, sonido, ponerTema, ir, abrirGaraje: () => abrirGaraje({ cliente }), listo: true };
 if ('serviceWorker' in navigator && import.meta.env.PROD && !q.has('sin-sw')) navigator.serviceWorker.register('sw.js');

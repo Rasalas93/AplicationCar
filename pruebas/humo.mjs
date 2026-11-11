@@ -72,4 +72,47 @@ for (const [clave, texto] of [['gastos', 'Gastado'], ['guantera', 'documentos'],
   });
 }
 
+test('Taller: una visita de aceite con su ticket pone verde la zona del motor', async () => {
+  await pagina.click('#nav [data-nav="taller"]');
+  await pagina.click('#nuevaV');
+  await pagina.fill('#vKm', '165500'); await pagina.fill('#vImp', '129,90'); await pagina.fill('#vTaller', 'Taller de ejemplo');
+  await pagina.click('[data-trabajo="aceite"]');
+  const [fc] = await Promise.all([pagina.waitForEvent('filechooser'), pagina.click('#hoja [data-elegir="archivo"]')]);
+  await fc.setFiles({ name: 'ticket.png', mimeType: 'image/png', buffer: await pagina.screenshot({ clip: { x: 0, y: 0, width: 60, height: 60 } }) });
+  await pagina.click('#vGuardar');
+  await pagina.waitForSelector('.visitaT .chip.ok');
+  await pagina.click('#nav [data-nav="inicio"]');
+  await pagina.waitForSelector('.zonas3d .zona[data-zona="motor"][data-nivel="verde"]', { state: 'attached' });
+});
+
+test('Guantera: un PDF en su hueco se abre con pdf.js y al borrarlo vuelve la falta', async () => {
+  const otra = await navegador.newPage();
+  await otra.setContent('<h1 style="font:40px sans-serif">Permiso de ejemplo</h1>');
+  const pdf = await otra.pdf({ width: '400px', height: '300px' });
+  await otra.close();
+  await pagina.click('#nav [data-nav="guantera"]');
+  await pagina.click('[data-doc="permiso"]');
+  const [fc] = await Promise.all([pagina.waitForEvent('filechooser'), pagina.click('#hoja [data-elegir="archivo"]')]);
+  await fc.setFiles({ name: 'permiso.pdf', mimeType: 'application/pdf', buffer: pdf });
+  await pagina.waitForSelector('[data-doc="permiso"]:not(.falta)');
+  await pagina.click('[data-doc="permiso"]');
+  await pagina.click('#hoja [data-archivo]');
+  await pagina.waitForFunction(() => { const c = document.querySelector('#hoja .visor canvas'); return c && c.width > 100; }, null, { timeout: 30000 });
+  await pagina.click('#hoja [data-borrar]'); await pagina.click('#hoja [data-borrar]');
+  await pagina.waitForSelector('[data-doc="permiso"].falta');
+});
+
+test('Garaje: una moto nueva sale en Inicio con su silueta y se vuelve al Focus', async () => {
+  await pagina.click('#nav [data-nav="inicio"]');
+  await pagina.click('#btnGaraje');
+  await pagina.fill('#gNombre', 'La moto'); await pagina.fill('#gKm', '21000');
+  await pagina.click('#gGuardar');
+  await pagina.waitForSelector('.escenario.plano .silueta[data-tipo="moto"] .zona[data-zona="transmision"]');
+  assert.match(await pagina.textContent('#marcaI'), /La moto/);
+  await pagina.click('#btnGaraje');
+  await pagina.click('#hoja [data-veh="focus"]');
+  await pagina.waitForSelector('.escenario:not(.plano)');
+  assert.match(await pagina.textContent('#modeloI'), /Focus/);
+});
+
 test('sin errores de página', () => assert.deepEqual(errores, []));
