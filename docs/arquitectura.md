@@ -76,3 +76,24 @@ Amplía lo anterior sin rediseñar: el núcleo gana cuatro módulos pequeños y 
 - **L**: `silueta.js` y `coche3d.js` son intercambiables para Inicio.
 - **I**: las pantallas siguen hablando solo con `cliente`; el visor solo recibe `{leer, borrar}`.
 - **D**: `registroArchivos` recibe `repo` y `almacen`; nada nuevo toca IndexedDB fuera de `almacen.js`.
+
+## T1656: cada vehículo del Garaje en 3D
+### Módulos
+- `presentadores/modelos3d.js`: registro `MODELOS` (`focus`, `coche`, `moto`): GLB, zonas, material de pintura, acento y encuadre (objetivo, media longitud, vista de entrada). `modeloDe(v)`: el Focus el suyo; los demás, el genérico de su tipo.
+- `zonas-coche.js`, `zonas-moto.js`: anclas por rayo, como `zonas-focus.js`; la moto tiene las suyas (cadena, frenos, neumáticos, faro, depósito, colín).
+- `coche3d.js`: un solo visor (un contexto WebGL) con `cargar(modelo)`; cada GLB se monta una vez y se guarda; el cambio funde el lienzo (0,25 s fuera, 0,6 s dentro) y vuelve a la vista de entrada del modelo.
+- `inicio.js`: elige el modelo con `modeloDe`; sin WebGL o si el GLB falla, la silueta SVG de su tipo (el Focus, su póster).
+
+### Flujo
+Garaje → `cliente.usar(id)` → `pintar()` → `coche.cargar(MODELOS[id])` + `pintar(color)` + `matricula(texto)` + `zonas(lista)`. Lo pedido durante el fundido se guarda y se aplica al modelo nuevo antes de mostrarlo.
+
+### Datos y peso
+- Color y matrícula salen del vehículo (`pintura.color`, `matricula`); el alta del Garaje los pide (opcionales). Sin color: Blanco Perla la moto y Azul Cobalto el coche (T1645).
+- Solo se baja el GLB del vehículo activo: `precache.json` no lleva `moto.glb` ni `coche.glb`; el service worker los guarda al usarlos.
+
+### SOLID en lo nuevo
+- **S**: el registro dice qué modelo y dónde; el visor solo dibuja; Inicio solo elige.
+- **O**: un modelo nuevo es una entrada de `MODELOS` y su archivo de zonas.
+- **L**: `coche3d.js` y `silueta.js` siguen intercambiables para Inicio.
+- **I**: el visor expone `cargar`, `pintar`, `matricula`, `zonas`, `activar`; las pruebas leen `modelo`, `color`, `placa` y `anclas()`.
+- **D**: el visor recibe la configuración del modelo; no importa el registro.
