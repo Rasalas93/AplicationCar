@@ -1,6 +1,6 @@
-/** Inicio: el coche 3D con sus zonas arriba y, debajo, lo que pide atención (vista-modelo + pintado). */
+/** Inicio: el vehículo en 3D con sus zonas arriba y, debajo, lo que pide atención (vista-modelo + pintado). */
 import { crearCoche3D, hayWebGL } from '../presentadores/coche3d.js';
-import { ZONAS_FOCUS } from '../presentadores/zonas-focus.js';
+import { MODELOS, modeloDe } from '../presentadores/modelos3d.js';
 import { crearSilueta, NOMBRES } from '../presentadores/silueta.js';
 import { num, km, larga, dma, MES, partes, esc } from '../formato.js';
 import { abrirHoja, cerrarHoja, tocar, icono } from '../ui.js';
@@ -19,7 +19,8 @@ export function vistaInicio(p) {
 }
 
 export function pantallaInicio({ raiz, cliente, temaActual, ir, abrirAspecto, abrirGaraje }) {
-  let coche = null, plano = null, vm = null, activa = false, en3d = false;
+  let coche = null, plano = null, vm = null, activa = false, en3d = false, modelo = null;
+  const conWebGL = hayWebGL(), fallidos = new Set();
   raiz.innerHTML = `
     <div class="escenario" id="escenario">
       <img class="poster" src="${BASE}modelo/poster.jpg" alt="Ford Focus en el estudio" decoding="async">
@@ -34,22 +35,32 @@ export function pantallaInicio({ raiz, cliente, temaActual, ir, abrirAspecto, ab
   raiz.querySelector('#btnGaraje').onclick = () => { tocar('toque'); abrirGaraje(); };
 
   const esc3d = raiz.querySelector('#escenario');
-  /** El Focus va en 3D (se crea una vez y se conserva); otro vehículo, en su silueta. */
+  /** Cada vehículo en 3D con su modelo (un visor que se conserva y cambia de GLB); sin WebGL o si su GLB falla, el Focus queda en el póster y los demás en su silueta. */
   function presentador(v) {
-    en3d = v.presentador === 'focus3d';
+    const id = modeloDe(v);
+    en3d = id === 'focus' || (conWebGL && !fallidos.has(id));
+    modelo = en3d ? MODELOS[id] : null;
     esc3d.classList.toggle('plano', !en3d);
-    if (en3d && !coche && hayWebGL()) {
-      coche = crearCoche3D({ contenedor: esc3d, lienzo: raiz.querySelector('#lienzo3d'), modelo: `${BASE}modelo/focus.glb`, entorno: `${BASE}modelo/estudio.hdr`, definiciones: ZONAS_FOCUS, alTocarZona: z => abrirTarea(z.clave, true) });
-      coche.listo.then(() => { esc3d.classList.add('vivo'); window.__coche3d = coche; window.__listo3d = true; }).catch(() => { window.__listo3d = 'error'; });
-      coche.iniciar();
-    } else if (en3d && !coche) window.__listo3d = 'sin-webgl';
+    esc3d.classList.toggle('sinPoster', id !== 'focus');
+    if (en3d && conWebGL && !fallidos.has(id)) {
+      if (!coche) {
+        coche = crearCoche3D({ contenedor: esc3d, lienzo: raiz.querySelector('#lienzo3d'), entorno: `${BASE}modelo/estudio.hdr`, base: BASE, alTocarZona: z => abrirTarea(z.clave, true) });
+        window.__coche3d = coche;
+        coche.iniciar();
+      }
+      window.__listo3d = false;
+      coche.cargar(modelo).then(e => { if (e) { esc3d.classList.add('vivo'); window.__listo3d = true; } }).catch(() => {
+        fallidos.add(id);
+        if (id === 'focus') window.__listo3d = 'error'; else pintar();
+      });
+    } else if (en3d) window.__listo3d = conWebGL ? 'error' : 'sin-webgl';
     if (!en3d && (!plano || plano.tipo !== v.tipo)) {
       esc3d.querySelector('.silueta')?.remove();
       plano = crearSilueta({ contenedor: esc3d, tipo: v.tipo, alTocarZona: z => abrirTarea(z.clave, true) });
     }
     if (plano) plano.mostrar(!en3d);
     if (coche) coche.activar(en3d && activa);
-    return en3d ? coche : plano;
+    return en3d ? (fallidos.has(id) ? null : coche) : plano;
   }
 
   function abrirTarea(clave, desdeZona) {
@@ -63,7 +74,7 @@ export function pantallaInicio({ raiz, cliente, temaActual, ir, abrirAspecto, ab
     const nivel = { rojo: ['alerta', 'Vence en los próximos 3 meses'], ambar: ['falta', 'Falta un dato'], verde: ['ok', 'En regla'] }[f.nivel];
     abrirHoja(`<div class="tarea" style="--c:${color}">
       <div class="hcab"><h2>${esc(f.titulo)}</h2>${f.ejemplo ? '<span class="ej">ejemplo</span>' : ''}</div>
-      <div class="estado"><span class="chip ${nivel[0]}">${nivel[1]}</span><span class="chip">${esc((en3d && ZONAS_FOCUS[f.zona]?.nombre) || NOMBRES[f.zona] || '')}</span></div>
+      <div class="estado"><span class="chip ${nivel[0]}">${nivel[1]}</span><span class="chip">${esc((modelo && modelo.zonas[f.zona]?.nombre) || NOMBRES[f.zona] || '')}</span></div>
       <div class="cifra">${cifra}</div>
       <div class="kv"><span>Qué</span><b>${esc(f.detalle)}</b>${f.vence && f.vence.km ? `<span>Faltan</span><b>${km(f.faltan.km)} a ${num(vm.vehiculo.kmDia, 1)} km/día</b>` : ''}<span>Fuente</span><b>${fuente}</b></div>
       <div class="acciones">${f.taller ? `<button class="boton pri" data-ir="taller">Anotar en Taller</button>` : ''}${f.gasto ? `<button class="boton${f.taller ? '' : ' pri'}" data-ir="gastos">Ver en Gastos</button>` : f.taller ? '' : `<button class="boton pri" data-ir="guantera">Ir a la Guantera</button>`}<button class="boton" data-cerrar>Cerrar</button></div></div>`, { clase: 'hTarea' });
@@ -81,7 +92,7 @@ export function pantallaInicio({ raiz, cliente, temaActual, ir, abrirAspecto, ab
     raiz.querySelector('#odoI').textContent = num(v.odometro.km, 0);
     raiz.querySelector('#fuenteI').textContent = v.odometro.fuente.replace('DGT · ', '');
     const pr = presentador(v);
-    if (pr) { pr.pintar(v.pintura.color); if (v.matricula) pr.matricula(v.matricula); pr.zonas(vm.zonas); }
+    if (pr) { pr.pintar(v.pintura.color); pr.matricula(v.matricula || ''); pr.zonas(vm.zonas); }
     else { esc3d.querySelector('.zonasPlano')?.remove(); esc3d.insertAdjacentHTML('beforeend', `<div class="zonasPlano">${vm.zonas.map(z => `<button class="zona" data-nivel="${z.nivel}" data-clave="${z.clave}"><i></i><span><b>${z.titulo}</b><small>${z.dato}</small></span></button>`).join('')}</div>`); }
     esc3d.querySelectorAll('.zonasPlano .zona').forEach(b => b.onclick = () => abrirTarea(b.dataset.clave, true));
     const col = n => ({ rojo: est.alerta, ambar: est.falta, verde: est.ok }[n]);

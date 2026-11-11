@@ -90,3 +90,7 @@ a.boton{text-decoration:none;color:var(--tinta)}
 .silueta[hidden]{display:none}
 .silueta svg{position:absolute;left:4%;right:4%;top:22%;bottom:16%;width:92%;height:62%;filter:drop-shadow(0 14px 26px rgba(0,0,0,.55))}
 .silueta::before{content:"";position:absolute;left:8%;right:8%;top:30%;bottom:10%;background:radial-gradient(50% 50% at 50% 60%,color-mix(in srgb,var(--pintura) 26%,transparent),transparent 70%);pointer-events:none}
+.formV .colores{display:flex;flex-direction:column;gap:4px}
+.formV .colores>div{display:flex;gap:8px;align-items:center;min-height:40px}
+.formV .colores button{width:28px;height:28px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.formV .colores button.on{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--acento)}

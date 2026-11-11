@@ -4,6 +4,9 @@
 .escenario canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s;touch-action:none}
 .escenario.vivo canvas{opacity:1}
 .escenario.vivo .poster{opacity:0}
+.escenario.sinPoster .poster{display:none}
+.escenario>.zonas3d{transition:opacity .4s}
+.escenario.vivo.cambiando canvas,.escenario.cambiando>.zonas3d{opacity:0;transition-duration:.25s}
 .escenario::after{content:"";position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(180deg,transparent,var(--bg));pointer-events:none}
 .cabI{position:absolute;top:calc(14px + env(safe-area-inset-top));left:18px;right:14px;display:flex;justify-content:space-between;align-items:flex-start;z-index:6;pointer-events:none}
 .cabI>*{pointer-events:auto}

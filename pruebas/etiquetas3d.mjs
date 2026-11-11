@@ -88,6 +88,7 @@ test('etiquetas de la silueta (moto y coche) sobre su punto en vertical y apaisa
   let medidas = 0;
   for (const [ancho, alto] of PANTALLAS) {
     const pagina = await navegador.newPage({ viewport: { width: ancho, height: alto } });
+    await pagina.route(/modelo\/(moto|coche)\.glb$/, r => r.abort());
     await pagina.goto(`${url}?hoy=2026-11-11&limpio&sin-sw`);
     await pagina.waitForFunction('window.__listo3d === true', null, { timeout: 90000 });
     await pagina.evaluate(() => window.__coche3d.activar(false));

@@ -104,6 +104,7 @@ test('Guantera: un PDF en su hueco se abre con pdf.js y al borrarlo vuelve la fa
 
 test('Garaje: una moto nueva sale en Inicio con su silueta y se vuelve al Focus', async () => {
   await pagina.click('#nav [data-nav="inicio"]');
+  await pagina.route(/modelo\/(moto|coche)\.glb$/, r => r.abort());
   await pagina.click('#btnGaraje');
   await pagina.fill('#gNombre', 'La moto'); await pagina.fill('#gKm', '21000');
   await pagina.click('#gGuardar');

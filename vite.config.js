@@ -3,7 +3,7 @@ import { readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { createHash } from 'node:crypto';
 
-/** Escribe dist/precache.json y versiona la caché de sw.js con el hash del build. */
+/** Escribe dist/precache.json (sin los GLB de coche y moto: se bajan al usarlos) y versiona la caché de sw.js con el hash del build. */
 function precache() {
   return {
     name: 'precache',
@@ -15,7 +15,7 @@ function precache() {
       const recursos = lista.filter(f => !['sw.js', 'precache.json'].includes(f)).sort();
       const h = createHash('sha1');
       recursos.forEach(f => h.update(f).update(readFileSync(join(raiz, f))));
-      writeFileSync(join(raiz, 'precache.json'), JSON.stringify(recursos));
+      writeFileSync(join(raiz, 'precache.json'), JSON.stringify(recursos.filter(f => !['modelo/moto.glb', 'modelo/coche.glb'].includes(f))));
       const sw = join(raiz, 'sw.js');
       writeFileSync(sw, readFileSync(sw, 'utf8').replace("'copiloto-v1'", `'copiloto-${h.digest('hex').slice(0, 10)}'`));
     }
