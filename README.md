@@ -19,7 +19,7 @@ npm run android      # build + cap sync + APK de depuración (necesita JDK 21 y 
 APK: `android/app/build/outputs/apk/debug/app-debug.apk`.
 
 ## Arquitectura
-Ver [`docs/arquitectura.md`](docs/arquitectura.md) (módulos, interfaces, flujo de datos, SOLID) y el diseño de origen en [`docs/diseno-t1625.md`](docs/diseno-t1625.md).
+Ver [`docs/arquitectura.md`](docs/arquitectura.md) (módulos, interfaces, flujo de datos, SOLID) , el diseño de origen en [`docs/diseno-t1625.md`](docs/diseno-t1625.md) y el mapa de datos genérico en [`docs/mapa-datos.md`](docs/mapa-datos.md). Los requisitos legales de T1625 se quedan fuera del repositorio porque nombran el municipio.
 
 ## Privacidad
 Repositorio público: sin titular, bastidor, domicilio, DNI, número de póliza ni imágenes de documentos. La matrícula solo vive en `datos/semilla.json`. Hay una prueba que lo comprueba.
