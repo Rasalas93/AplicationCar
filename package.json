@@ -8,7 +8,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "node --test pruebas/nucleo.test.mjs pruebas/archivos-taller.test.mjs pruebas/garaje3d.test.mjs && node pruebas/prevision.test.mjs && node pruebas/humo.mjs && node pruebas/etiquetas3d.mjs && node pruebas/garaje3d.mjs",
+    "test": "node --test pruebas/nucleo.test.mjs pruebas/archivos-taller.test.mjs pruebas/garaje3d.test.mjs && node pruebas/prevision.test.mjs && node pruebas/humo.mjs && node pruebas/etiquetas3d.mjs && node pruebas/garaje3d.mjs && node pruebas/puntos3d.mjs",
     "test:nucleo": "node --test pruebas/nucleo.test.mjs pruebas/archivos-taller.test.mjs && node pruebas/prevision.test.mjs",
     "glb": "bash herramientas/focus/exportar.sh",
     "android": "npm run build && npx cap sync android && cd android && ./gradlew assembleDebug"
