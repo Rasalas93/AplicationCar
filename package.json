@@ -8,8 +8,8 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "node --test pruebas/nucleo.test.mjs && node pruebas/prevision.test.mjs && node pruebas/humo.mjs",
-    "test:nucleo": "node --test pruebas/nucleo.test.mjs && node pruebas/prevision.test.mjs",
+    "test": "node --test pruebas/nucleo.test.mjs pruebas/archivos-taller.test.mjs && node pruebas/prevision.test.mjs && node pruebas/humo.mjs",
+    "test:nucleo": "node --test pruebas/nucleo.test.mjs pruebas/archivos-taller.test.mjs && node pruebas/prevision.test.mjs",
     "glb": "bash herramientas/focus/exportar.sh",
     "android": "npm run build && npx cap sync android && cd android && ./gradlew assembleDebug"
   },
@@ -29,6 +29,7 @@
     "@fontsource/inter": "^5.3.0",
     "@fontsource/jetbrains-mono": "^5.3.0",
     "@fontsource/roboto-condensed": "^5.3.0",
+    "pdfjs-dist": "^6.5.438",
     "three": "^0.187.0"
   },
   "devDependencies": {

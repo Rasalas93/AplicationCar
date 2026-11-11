@@ -15,13 +15,13 @@ export function pantallaGastos({ raiz, cliente, temaActual }) {
   function pista(prev, media, conTexto, tope, hoy) {
     const x = v => (Math.min(v, tope) / tope * 100).toFixed(2) + '%';
     const [a, m, d] = partes(hoy), diasMes = new Date(Date.UTC(a, m, 0)).getUTCDate();
-    const dif = (prev.central - media) / media * 100, mes = hoy.slice(0, 7);
+    const dif = media > 0 ? (prev.central - media) / media * 100 : 0, mes = hoy.slice(0, 7);
     const fijos = R.gastos.filter(g => g.recurrente && g.fecha.startsWith(mes));
     const causa = fijos.length ? `este mes cae ${fijos.map(g => `${g.concepto} anual (${eur(g.importe)})`).join(', ')}` : 'sin gastos anuales este mes';
     return `<div class="pista">
       <div class="carril"><i class="rango" style="left:${x(prev.min)};width:calc(${x(prev.max)} - ${x(prev.min)})"></i><i class="hecho" style="width:${x(prev.gastado)}"></i><i class="media" style="left:${x(media)}"></i><i class="centro" style="left:${x(prev.central)}"></i></div>
-      <span class="et" style="left:0">día ${d} de ${diasMes}</span><span class="et m" style="left:${x(media)}">mes medio ${eur(media, 0)}</span><span class="et" style="right:0">${eur(tope, 0)}</span>
-      ${conTexto ? `<p><b>${dif >= 0 ? '▲' : '▼'} ${num(Math.abs(dif), 0)} %</b> ${dif >= 0 ? 'sobre' : 'bajo'} tu mes medio · ${causa}</p>` : ''}</div>`;
+      <span class="et" style="left:0">día ${d} de ${diasMes}</span>${media > 0 ? `<span class="et m" style="left:${x(media)}">mes medio ${eur(media, 0)}</span>` : ''}<span class="et" style="right:0">${eur(tope, 0)}</span>
+      ${conTexto && media > 0 ? `<p><b>${dif >= 0 ? '▲' : '▼'} ${num(Math.abs(dif), 0)} %</b> ${dif >= 0 ? 'sobre' : 'bajo'} tu mes medio · ${causa}</p>` : ''}</div>`;
   }
 
   function barras() {
@@ -50,11 +50,11 @@ export function pantallaGastos({ raiz, cliente, temaActual }) {
 
   function pintarPanel() {
     const V = T.voz, hoy = R.hoy, [ANIO, NMES, NDIA] = partes(hoy), prev = R.prevision, m = R.medias;
-    const tope = Math.ceil(Math.max(prev.max, m.total.mes) * 1.08 / 50) * 50;
+    const tope = Math.max(50, Math.ceil(Math.max(prev.max, m.total.mes) * 1.08 / 50) * 50);
     const cats = R.porCategoria.filter(c => c.importe > 0.005), tot = cats.reduce((s, c) => s + c.importe, 0);
     const lista = [...R.gastos].reverse().slice(0, 5), ultimaSem = R.semanas[R.semanas.length - 1];
     raiz.querySelector('#cabG').innerHTML = `<div><span class="marca">${V.marca}</span><span class="hoy">${NDIA} ${MES[NMES - 1].toUpperCase()} ${ANIO}</span></div>
-      <h1>${V.gastos}<small>${esc(R.vehiculo.modelo)} · ${esc(R.vehiculo.version)}</small></h1>`;
+      <h1>${V.gastos}<small>${esc([R.vehiculo.modelo, R.vehiculo.version].filter(Boolean).join(' · '))}</small></h1>`;
     raiz.querySelector('#panelG').innerHTML = `
       <div class="heroe">
         <div><span class="rot">${V.gastado} · ${MESL[NMES - 1]}</span> ${R.gastos.some(g => g.ejemplo) ? '<span class="ej">ejemplo</span>' : ''}<span class="gordo">${num(prev.gastado)}<em>€</em></span></div>
@@ -62,7 +62,7 @@ export function pantallaGastos({ raiz, cliente, temaActual }) {
       </div>
       ${pista(prev, m.total.mes, true, tope, hoy)}
       <div class="marco tarj">
-        <div class="pcab"><span class="rot">${V.medias}</span><span>${m.semanas} semanas · ${corta(m.desde)} a ${corta(m.hasta)}</span></div>
+        <div class="pcab"><span class="rot">${V.medias}</span><span>${m.desde ? `${m.semanas} semanas · ${corta(m.desde)} a ${corta(m.hasta)}` : 'sin historial todavía'}</span></div>
         <div class="med"><div><strong>${num(m.total.semana)}<em>€</em></strong><span>por semana</span></div><div><strong>${num(m.total.mes)}<em>€</em></strong><span>por mes</span></div>
           <ul><li><i class="pt" style="--c:${T.acento}"></i>Uso y taller<b>${eur(m.corriente.mes)}</b></li><li><i class="pt fijo" style="--c:${color('itv')}"></i>Fijos anuales ÷ 12<b>${eur(m.fijos.mes)}</b></li>
           ${m.fijos.sinImporte.map(c => `<li class="conf"><i class="pt" style="--c:${T.estados.falta}"></i>${esc(c)}<b>a confirmar</b></li>`).join('')}</ul></div>
@@ -128,7 +128,7 @@ export function pantallaGastos({ raiz, cliente, temaActual }) {
 
   function abrirPorque() {
     const V = T.voz, p = R.prevision, v = p.variable, hoy = R.hoy, [, NMES, NDIA] = partes(hoy), diasMes = new Date(Date.UTC(+hoy.slice(0, 4), NMES, 0)).getUTCDate();
-    const m = R.medias, tope = Math.ceil(Math.max(p.max, m.total.mes) * 1.08 / 50) * 50;
+    const m = R.medias, tope = Math.max(50, Math.ceil(Math.max(p.max, m.total.mes) * 1.08 / 50) * 50);
     const ev = e => `<b>${esc(e.concepto)}</b> ${num(e.min, 0)}–${num(e.max, 0)} € (${corta(e.fecha)}${e.por === 'km' ? ', por km' : ''})${e.ejemplo ? ' <span class="ej">ejemplo</span>' : ''}`;
     const nombreMes = mes => { const [a, mm] = mes.split('-').map(Number); return `${MESL[mm - 1][0].toUpperCase() + MESL[mm - 1].slice(1)} ${a}`; };
     const futuro = f => `<div><span class="rot">${nombreMes(f.mes)}</span><strong>${eur(f.central, 0)}<small>${num(f.min, 0)}–${num(f.max, 0)}</small></strong><p>${f.eventos.length ? f.eventos.map(ev).join('<br>') : `Solo uso: ${f.variable.diasRestantes} días × ${eur(f.variable.ritmoDia)}<br>Sin eventos programados`}</p></div>`;
