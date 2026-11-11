@@ -19,6 +19,7 @@ const telefono = (hash, titulo) => `<figure><div class="tel"><iframe src="${base
 
 async function lamina(html, ancho, alto, ruta) {
   const p = await nav.newPage({ viewport: { width: ancho, height: alto }, deviceScaleFactor: 2 });
+  await p.goto(base + 'herramientas/demo/escenario.html');
   await p.setContent(`<!doctype html><html lang="es"><head><meta charset="utf-8"><style>${CSS}</style></head><body>${html}</body></html>`);
   await p.waitForFunction(() => [...document.querySelectorAll('iframe')].every(f => f.contentWindow.__app && f.contentWindow.__listo3d), null, { timeout: 180000 });
   await p.waitForTimeout(2500);
