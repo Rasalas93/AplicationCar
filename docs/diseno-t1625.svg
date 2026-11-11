@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 2128" width="1080" height="2128">
+<title>Aplicación Coche: arquitectura</title>
+<defs>
+<radialGradient id="halo" cx="50%" cy="0%" r="75%"><stop offset="0" stop-color="#2A1B3C"/><stop offset="1" stop-color="#07080C"/></radialGradient>
+<linearGradient id="gCopiloto" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#191A48"/><stop offset=".5" stop-color="#873A5E"/><stop offset=".8" stop-color="#D25E3E"/><stop offset="1" stop-color="#FFC873"/></linearGradient>
+<linearGradient id="gPuente" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#04050D"/><stop offset=".55" stop-color="#1B1846"/><stop offset="1" stop-color="#35D7FF"/></linearGradient>
+<linearGradient id="velo" x1="0" y1="0" x2="0" y2="1"><stop offset=".25" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".62"/></linearGradient>
+<filter id="brillo" x="-10%" y="-40%" width="120%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FFB01F" flood-opacity=".35"/></filter>
+</defs>
+<rect width="1080" height="2128" fill="url(#halo)"/>
+<text x="48" y="96" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="60" font-weight="800" fill="#FFFFFF" text-anchor="start" letter-spacing="-1">Aplicación Coche</text>
+<text x="48" y="146" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="32" font-weight="500" fill="#FFB01F" text-anchor="start" >Back y front separados · la skin es solo datos</text>
+<rect x="48" y="190" width="984" height="292" rx="28" fill="#10121A" stroke="#FFFFFF" stroke-opacity=".09" stroke-width="2"/>
+<rect x="48" y="220" width="8" height="232" rx="4" fill="#FF7A5C"/>
+<text x="76" y="244" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="28" font-weight="700" fill="#FF7A5C" text-anchor="start" letter-spacing="3">SKINS</text>
+<text x="1004" y="244" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="end" >datos, cero lógica</text>
+<rect x="76" y="274" width="296" height="130" rx="18" fill="url(#gCopiloto)"/>
+<rect x="76" y="274" width="296" height="130" rx="18" fill="url(#velo)"/>
+<text x="224" y="350" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="32" font-weight="700" fill="#FFFFFF" text-anchor="middle" >Copiloto</text>
+<text x="224" y="384" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#F2F3F8" text-anchor="middle" >4 variantes</text>
+<rect x="392" y="274" width="296" height="130" rx="18" fill="url(#gPuente)"/>
+<rect x="392" y="274" width="296" height="130" rx="18" fill="url(#velo)"/>
+<text x="540" y="350" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="32" font-weight="700" fill="#FFFFFF" text-anchor="middle" >Puente de mando</text>
+<text x="540" y="384" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#F2F3F8" text-anchor="middle" >T1624</text>
+<rect x="708" y="274" width="296" height="130" rx="18" fill="none" stroke="#8088A6" stroke-dasharray="8 8" stroke-width="2"/>
+<text x="856" y="350" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="32" font-weight="700" fill="#A4AAC4" text-anchor="middle" >+ nueva</text>
+<text x="856" y="384" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >una carpeta</text>
+<text x="540.0" y="450" font-family="'JetBrains Mono', 'DejaVu Sans Mono', monospace" font-size="28" font-weight="500" fill="#FFFFFF" text-anchor="middle" >tokens.json · recursos · sonidos</text>
+<line x1="540.0" y1="490" x2="540.0" y2="538" stroke="#A4AAC4" stroke-width="4" stroke-linecap="round"/>
+<path d="M528.0 524 L540.0 540 L552.0 524" fill="none" stroke="#A4AAC4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="570.0" y="524" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="start" >se vuelca en variables CSS</text>
+<rect x="48" y="546" width="984" height="330" rx="28" fill="#10121A" stroke="#FFFFFF" stroke-opacity=".09" stroke-width="2"/>
+<rect x="48" y="576" width="8" height="270" rx="4" fill="#FFB01F"/>
+<text x="76" y="600" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="28" font-weight="700" fill="#FFB01F" text-anchor="start" letter-spacing="3">FRONTEND · app</text>
+<text x="1004" y="600" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="end" >solo pinta</text>
+<rect x="76" y="630" width="296" height="124" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="224" y="688.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="34" font-weight="600" fill="#FFFFFF" text-anchor="middle" >Pantallas</text>
+<text x="224" y="726.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >huecos con nombre</text>
+<rect x="392" y="630" width="296" height="124" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="540" y="688.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="34" font-weight="600" fill="#FFFFFF" text-anchor="middle" >Vista-modelo</text>
+<text x="540" y="726.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >estado, sin color</text>
+<rect x="708" y="630" width="296" height="124" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="856" y="688.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="34" font-weight="600" fill="#FFFFFF" text-anchor="middle" >Motor de skin</text>
+<text x="856" y="726.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >y presentadores</text>
+<text x="540.0" y="802" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="28" font-weight="500" fill="#FFFFFF" text-anchor="middle" >Inicio · Taller · Agenda · Guantera · Repostar</text>
+<text x="540.0" y="842" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >las mismas pantallas con cualquier skin</text>
+<line x1="540.0" y1="884" x2="540.0" y2="932" stroke="#A4AAC4" stroke-width="4" stroke-linecap="round"/>
+<path d="M528.0 918 L540.0 934 L552.0 918" fill="none" stroke="#A4AAC4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M528.0 898 L540.0 882 L552.0 898" fill="none" stroke="#A4AAC4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="570.0" y="918" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="start" >pide y recibe JSON</text>
+<rect x="48" y="940" width="984" height="150" rx="28" fill="#171306" stroke="#FFB01F" stroke-width="3" filter="url(#brillo)"/>
+<text x="540.0" y="1002" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="40" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="6">CONTRATO DEL API</text>
+<text x="540.0" y="1052" font-family="'JetBrains Mono', 'DejaVu Sans Mono', monospace" font-size="26" font-weight="500" fill="#FFB01F" text-anchor="middle" >/vehiculos /vencimientos /plan /registros /documentos</text>
+<line x1="540.0" y1="1098" x2="540.0" y2="1146" stroke="#A4AAC4" stroke-width="4" stroke-linecap="round"/>
+<path d="M528.0 1132 L540.0 1148 L552.0 1132" fill="none" stroke="#A4AAC4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M528.0 1112 L540.0 1096 L552.0 1112" fill="none" stroke="#A4AAC4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="570.0" y="1132" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="start" >igual en el móvil que por HTTP</text>
+<rect x="48" y="1154" width="984" height="388" rx="28" fill="#10121A" stroke="#FFFFFF" stroke-opacity=".09" stroke-width="2"/>
+<rect x="48" y="1184" width="8" height="328" rx="4" fill="#5CF0DC"/>
+<text x="76" y="1208" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="28" font-weight="700" fill="#5CF0DC" text-anchor="start" letter-spacing="3">BACKEND · nucleo</text>
+<text x="1004" y="1208" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="end" >calcula y guarda</text>
+<rect x="76" y="1238" width="296" height="124" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="224" y="1296.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="34" font-weight="600" fill="#FFFFFF" text-anchor="middle" >API</text>
+<text x="224" y="1334.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >casos de uso</text>
+<rect x="392" y="1238" width="296" height="124" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="540" y="1296.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="34" font-weight="600" fill="#FFFFFF" text-anchor="middle" >Dominio</text>
+<text x="540" y="1334.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >dato + su fuente</text>
+<rect x="708" y="1238" width="296" height="124" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="856" y="1296.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="34" font-weight="600" fill="#FFFFFF" text-anchor="middle" >Motor de reglas</text>
+<text x="856" y="1334.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >fecha o km</text>
+<rect x="76" y="1382" width="296" height="124" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="224" y="1440.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="34" font-weight="600" fill="#FFFFFF" text-anchor="middle" >Normas y planes</text>
+<text x="224" y="1478.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >son datos</text>
+<rect x="392" y="1382" width="296" height="124" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="540" y="1440.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="34" font-weight="600" fill="#FFFFFF" text-anchor="middle" >Fuentes</text>
+<text x="540" y="1478.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >manual · BT · OBD</text>
+<rect x="708" y="1382" width="296" height="124" rx="18" fill="none" stroke="#8088A6" stroke-dasharray="8 8" stroke-width="2"/>
+<text x="856" y="1440.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="34" font-weight="600" fill="#A4AAC4" text-anchor="middle" >Sync</text>
+<text x="856" y="1478.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >después</text>
+<line x1="540.0" y1="1550" x2="540.0" y2="1598" stroke="#A4AAC4" stroke-width="4" stroke-linecap="round"/>
+<path d="M528.0 1584 L540.0 1600 L552.0 1584" fill="none" stroke="#A4AAC4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="570.0" y="1584" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="start" >puertos → adaptadores</text>
+<rect x="48" y="1606" width="984" height="224" rx="28" fill="#10121A" stroke="#FFFFFF" stroke-opacity=".09" stroke-width="2"/>
+<rect x="48" y="1636" width="8" height="164" rx="4" fill="#C6CBE0"/>
+<text x="76" y="1660" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="28" font-weight="700" fill="#C6CBE0" text-anchor="start" letter-spacing="3">EN EL MÓVIL · Android</text>
+<text x="1004" y="1660" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="end" >Capacitor</text>
+<rect x="76" y="1690" width="217" height="112" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="184" y="1742.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="30" font-weight="600" fill="#FFFFFF" text-anchor="middle" >IndexedDB</text>
+<text x="184" y="1780.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >datos</text>
+<rect x="313" y="1690" width="217" height="112" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="422" y="1742.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="30" font-weight="600" fill="#FFFFFF" text-anchor="middle" >Ficheros</text>
+<text x="422" y="1780.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >documentos</text>
+<rect x="550" y="1690" width="217" height="112" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="658" y="1742.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="30" font-weight="600" fill="#FFFFFF" text-anchor="middle" >Avisos</text>
+<text x="658" y="1780.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >locales</text>
+<rect x="787" y="1690" width="217" height="112" rx="18" fill="#1A1E2B" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<text x="896" y="1742.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="30" font-weight="600" fill="#FFFFFF" text-anchor="middle" >Bluetooth</text>
+<text x="896" y="1780.0" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="26" font-weight="400" fill="#A4AAC4" text-anchor="middle" >del coche</text>
+<rect x="48" y="1858" width="984" height="150" rx="28" fill="#10121A" stroke="#8088A6" stroke-opacity=".55" stroke-dasharray="10 10" stroke-width="2"/>
+<text x="76" y="1912" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="28" font-weight="700" fill="#8088A6" text-anchor="start" letter-spacing="3">DESPUÉS · servidor opcional</text>
+<text x="76" y="1968" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="28" font-weight="400" fill="#A4AAC4" text-anchor="start" >El mismo contrato por HTTP: copia y sincronización</text>
+<text x="540.0" y="2072" font-family="Inter, 'DejaVu Sans', sans-serif" font-size="28" font-weight="600" fill="#FFFFFF" text-anchor="middle" >MVP: todo dentro del APK, sin servidor, funciona sin cobertura</text>
+</svg>
