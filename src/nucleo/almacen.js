@@ -14,12 +14,12 @@ export function repositorioLocal(prefijo = 'coche:v1:', ls = globalThis.localSto
 /** Ficheros (fotos, PDF) en IndexedDB; en memoria si no hay IndexedDB. */
 export function almacenArchivos(nombre = 'coche-archivos', idb = globalThis.indexedDB) {
   const memoria = new Map();
-  if (!idb) return { guardar: async (k, b) => void memoria.set(k, b), leer: async k => memoria.get(k) || null };
+  if (!idb) return { guardar: async (k, b) => void memoria.set(k, b), leer: async k => memoria.get(k) || null, borrar: async k => void memoria.delete(k) };
   const abrir = () => new Promise((ok, mal) => {
     const r = idb.open(nombre, 1);
     r.onupgradeneeded = () => r.result.createObjectStore('archivos');
     r.onsuccess = () => ok(r.result); r.onerror = () => mal(r.error);
   });
   const op = async (modo, f) => { const db = await abrir(); return new Promise((ok, mal) => { const t = db.transaction('archivos', modo), r = f(t.objectStore('archivos')); t.oncomplete = () => ok(r.result); t.onerror = () => mal(t.error); }); };
-  return { guardar: (k, blob) => op('readwrite', s => s.put(blob, k)), leer: k => op('readonly', s => s.get(k)) };
+  return { guardar: (k, blob) => op('readwrite', s => s.put(blob, k)), leer: k => op('readonly', s => s.get(k)), borrar: k => op('readwrite', s => s.delete(k)) };
 }
