@@ -31,7 +31,8 @@ const visita = `async b64 => { const c = window.__app.cliente, f = new File([Uin
 const [mT, mA, mD, mG] = await Promise.all(PANTALLAS.map(x => marco(x[0])));
 await mT.evaluate(`(${visita})('${ticket}')`); await mT.evaluate(() => window.__app.ir('taller'));
 await mA.evaluate(`(${visita})('${ticket}')`); await mA.evaluate(() => window.__app.ir('taller'));
-await mA.waitForSelector('.visitaT'); await mA.click('.visitaT'); await mA.waitForSelector('#hoja.on [data-archivo]'); await mA.click('#hoja [data-archivo]');
+await mA.waitForSelector('.visitaT'); await mA.evaluate(() => document.querySelector('.visitaT').click());
+await mA.waitForSelector('#hoja.on [data-archivo]'); await mA.evaluate(() => document.querySelector('#hoja [data-archivo]').click());
 await mD.evaluate(async () => {
   const c = window.__app.cliente, b = await (await fetch('modelo/poster.jpg')).blob();
   await c.adjuntarVehiculo(new File([b], 'foto-del-coche.jpg', { type: 'image/jpeg' }));
