@@ -160,6 +160,7 @@ export function crearCoche3D({ contenedor, lienzo, entorno, base = '', alTocarZo
   }
 
   const v = new THREE.Vector3(), aCam = new THREE.Vector3();
+  let tapas = null;
   function moverPuntos() {
     const w = contenedor.clientWidth, h = contenedor.clientHeight, vistos = [];
     for (const p of puntos.values()) {
@@ -172,17 +173,24 @@ export function crearCoche3D({ contenedor, lienzo, entorno, base = '', alTocarZo
       if (p.ve) vistos.push(p);
     }
     vistos.sort((a, b) => a.y - b.y);
-    for (let i = 0; i < vistos.length; i++) {
-      const p = vistos[i], a = p.el.offsetWidth, cabe = izq => izq ? p.x + 8 - a >= 6 : p.x + a - 8 <= w - 6;
+    const G = 4, R = 8 + G, todos = [...puntos.values()].filter(p => p.pos), c0 = contenedor.getBoundingClientRect(), cajas = [];
+    tapas ??= [...contenedor.children].filter(e => +getComputedStyle(e).zIndex > +getComputedStyle(capa).zIndex).flatMap(e => e.children.length ? [...e.children] : [e]).map(e => ({ e, blanda: getComputedStyle(e).pointerEvents === 'none' }));
+    const sobre = tapas.map(({ e, blanda }) => ({ blanda, r: e.getBoundingClientRect() })).filter(t => t.r.width).map(({ blanda, r }) => ({ blanda, l: r.left - c0.left, r: r.right - c0.left, t: r.top - c0.top, b: r.bottom - c0.top }));
+    for (const p of vistos) {
+      const a = p.el.offsetWidth, hs = p.el.querySelector('span').offsetHeight, cabe = izq => izq ? p.x + 8 - a >= 6 : p.x + a - 8 <= w - 6;
       let mejor = null;
       for (const izq of [!cabe(false), cabe(false)]) {
         if (mejor && !cabe(izq)) continue;
-        const l = izq ? p.x + 8 - a : p.x - 8, r = l + a;
-        let dy = 0;
-        for (let j = 0; j < i; j++) { const o = vistos[j]; if (l < o.r + 4 && o.l < r + 4 && p.y + dy - (o.y + o.dy) < 40) dy = o.y + o.dy + 40 - p.y; }
-        if (!mejor || dy < mejor.dy) mejor = { izq, l, r, dy };
+        const l = izq ? p.x + 8 - a : p.x + 14, r = izq ? p.x - 12 : p.x - 8 + a;
+        const estorbos = conBlandas => [...cajas, ...sobre.filter(c => conBlandas || !c.blanda)].filter(c => l < c.r + G && c.l < r + G).map(c => [c.t - G, c.b + G])
+          .concat(todos.filter(o => o !== p && l < o.x + R && o.x - R < r).map(o => [o.y - R, o.y + R]));
+        const huecos = e => [0, ...e.flatMap(([t, b]) => [b - p.y + hs / 2, t - p.y - hs / 2])].filter(dy => e.every(([t, b]) => p.y + dy + hs / 2 <= t || p.y + dy - hs / 2 >= b)).sort((m, n) => Math.abs(m) - Math.abs(n));
+        const dentro = d => p.y + d - hs / 2 >= 0 && p.y + d + hs / 2 <= h, todas = huecos(estorbos(true)), duras = huecos(estorbos(false));
+        const [nivel, dy] = todas.some(dentro) ? [0, todas.find(dentro)] : duras.some(dentro) ? [1, duras.find(dentro)] : [2, todas[0]];
+        if (!mejor || nivel < mejor.nivel || nivel === mejor.nivel && Math.abs(dy) < Math.abs(mejor.dy)) mejor = { izq, l, r, dy, nivel };
       }
       Object.assign(p, mejor); p.el.classList.toggle('izq', p.izq);
+      cajas.push({ l: p.l, r: p.r, t: p.y + p.dy - hs / 2, b: p.y + p.dy + hs / 2 });
     }
     for (const p of puntos.values()) if (p.x != null) { p.el.style.transform = `translate(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px)`; p.el.style.setProperty('--dy', `${(p.dy || 0).toFixed(1)}px`); }
   }
