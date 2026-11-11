@@ -121,13 +121,13 @@ export function crearCoche3D({ contenedor, lienzo, modelo, entorno, alTocarZona,
       aCam.copy(camara.position).sub(p.pos).normalize();
       p.x = (v.x + 1) / 2 * w; p.y = (1 - v.y) / 2 * h; p.ve = p.normal.dot(aCam) > 0.02;
       p.el.classList.toggle('oculta', !p.ve);
-      p.el.classList.toggle('izq', p.x > w * 0.55);
       if (p.ve) vistos.push(p);
     }
+    for (const p of vistos) { const a = p.el.offsetWidth, izq = p.x + a - 8 > w - 6; p.el.classList.toggle('izq', izq); p.l = izq ? p.x + 8 - a : p.x - 8; p.r = p.l + a; }
     vistos.sort((a, b) => a.y - b.y);
     for (let i = 0; i < vistos.length; i++) {
       const p = vistos[i]; p.dy = 0;
-      for (let j = 0; j < i; j++) { const o = vistos[j]; if (o.el.classList.contains('izq') === p.el.classList.contains('izq') && Math.abs(o.x - p.x) < 120 && p.y + p.dy - (o.y + o.dy) < 40) p.dy = o.y + o.dy + 40 - p.y; }
+      for (let j = 0; j < i; j++) { const o = vistos[j]; if (p.l < o.r + 4 && o.l < p.r + 4 && p.y + p.dy - (o.y + o.dy) < 40) p.dy = o.y + o.dy + 40 - p.y; }
     }
     for (const p of puntos.values()) if (p.x != null) { p.el.style.transform = `translate(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px)`; p.el.style.setProperty('--dy', `${(p.dy || 0).toFixed(1)}px`); }
   }
@@ -190,6 +190,8 @@ export function crearCoche3D({ contenedor, lienzo, modelo, entorno, alTocarZona,
     /** Avanza el tiempo a mano (vídeo de demostración, fotograma a fotograma). */
     paso(dt) { activo = false; render(dt); },
     get controles() { return controles; },
+    /** Punto 3D de cada zona en el mundo (para medir dónde cae su etiqueta). */
+    anclas() { return [...puntos].filter(([, p]) => p.pos).map(([zona, p]) => ({ zona, pos: p.pos.clone() })); },
     iniciar() { requestAnimationFrame(bucle); }
   };
 }
