@@ -87,5 +87,5 @@ aplicarTema(T); sonido.usarTema(T);
 await document.fonts.ready;
 await refrescar();
 mostrar();
-window.__app = { pantallas, cliente, ponerTema, ir, listo: true };
+window.__app = { pantallas, cliente, sonido, ponerTema, ir, listo: true };
 if ('serviceWorker' in navigator && import.meta.env.PROD && !q.has('sin-sw')) navigator.serviceWorker.register('sw.js');
