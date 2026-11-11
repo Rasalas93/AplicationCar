@@ -1,0 +1,92 @@
+/* T1642: Taller, archivos, datos útiles, garaje y silueta (mismos tokens que T1636) */
+.entrada{width:100%;height:42px;padding:0 11px;border-radius:12px;border:1px solid var(--linea);background:color-mix(in srgb,var(--tinta) 6%,transparent);color:var(--tinta);font:600 14px var(--fDato);color-scheme:dark;outline:none;user-select:text}
+.entrada:focus{border-color:var(--acento);box-shadow:0 0 0 3px color-mix(in srgb,var(--acento) 22%,transparent)}
+.entrada::placeholder{color:var(--tenue);opacity:.75;font-weight:500}
+.formV{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 10px}
+.formV label{display:flex;flex-direction:column;gap:4px}
+.formV label.ancho{grid-column:1/-1}
+.formV span{font:600 11px var(--fDato);letter-spacing:.12em;color:var(--tenue);text-transform:uppercase}
+.hVisita>.lbl,.hGaraje>.lbl,.hoja>.lbl{display:block;margin:12px 0 6px}
+.hVisita .chips,.hGaraje .chips,.hoja .fuentes{margin-top:0;margin-bottom:8px}
+.hoja .chip{cursor:pointer}
+.chips .chip .ic{width:16px;height:16px}
+.ticketV{display:flex;align-items:center;gap:9px;min-height:40px;padding:0 12px;border-radius:12px;border:1px solid color-mix(in srgb,var(--ok) 55%,transparent);background:color-mix(in srgb,var(--ok) 10%,transparent);font:500 12px var(--fTexto);color:var(--tinta)}
+.ticketV .ic{color:var(--ok);flex:none}
+.ticketV.vacio{border-style:dashed;border-color:var(--linea);background:none;color:var(--tenue)}
+.ticketV.vacio .ic{color:var(--tenue)}
+.adjuntar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.adjuntar .boton{min-height:44px;font-size:13px}
+.hVisita .guardar,.hGaraje .guardar{width:100%;margin-top:14px}
+.boton.peligro{color:var(--alerta);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--alerta) 55%,transparent)}
+.boton.peligro.seguro{color:#fff;background:var(--alerta)}
+a.boton{text-decoration:none;color:var(--tinta)}
+.acciones:has(> :nth-child(3)){grid-template-columns:1fr 1fr 1fr}
+
+/* archivos */
+.archs{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.arch{display:flex;align-items:center;gap:10px;width:100%;min-height:46px;padding:0 8px 0 6px;border-radius:13px;text-align:left;background:linear-gradient(180deg,var(--card1),var(--card2));border:1px solid color-mix(in srgb,var(--ok) 35%,var(--linea))}
+.arch .ico{flex:none;width:28px;height:28px;border-radius:9px;display:grid;place-items:center;color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.arch .ico .ic{width:16px;height:16px}
+.arch div{flex:1;min-width:0}
+.arch h4{font:650 12.5px/1.15 var(--fTexto);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arch p{margin-top:2px;font:500 11px var(--fDato);color:var(--tenue)}
+.arch .chip{min-height:26px;font-size:11px}
+.nuevoA{margin-top:5px}
+.nuevoA .ico .ic{width:16px;height:16px}
+.visorMeta{margin-top:6px;font:500 12px/1.35 var(--fTexto);color:var(--tenue)}
+.visor{margin-top:10px;min-height:120px;border-radius:14px;overflow:hidden;background:#000;display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center}
+.visor img,.visor canvas{display:block;width:100%;height:auto}
+.visor canvas{background:#fff}
+.vacioV{padding:30px 12px;font:500 12px var(--fTexto);color:var(--tenue)}
+
+/* datos útiles */
+.datosU{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px}
+.campo.dato{text-align:left;min-height:52px}
+.campo.dato small u{font:700 11px var(--fDato);letter-spacing:0;text-transform:none}
+.campo.dato small u.ok{color:var(--ok)}.campo.dato small u.falta{color:var(--falta)}.campo.dato small u.ej{color:var(--falta);opacity:.85}
+.campo.dato b{font-size:13px;overflow-wrap:anywhere}
+.campo.dato.vacio{background:none;border-style:dashed}
+.campo.dato.vacio b{color:var(--tenue);font-weight:600}
+
+/* taller */
+.resumenT{display:grid;grid-template-columns:repeat(3,1fr) auto;align-items:center;gap:8px;min-height:62px;padding:8px 8px 8px 14px;border-radius:18px;border:1px solid color-mix(in srgb,var(--acento) 45%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--acento) 16%,rgba(9,10,16,.82)),rgba(9,10,16,.82));backdrop-filter:blur(8px)}
+.resumenT strong{display:block;font:900 19px/1 var(--fTitulo);letter-spacing:-.02em;white-space:nowrap}
+.resumenT span{display:block;margin-top:3px;font:600 11px var(--fDato);color:var(--tenue)}
+.resumenT .boton{min-height:42px;padding:0 12px;font-size:13px}
+.resumenT .boton .ic{width:17px;height:17px}
+.proxT{margin-top:2px}
+.proxT .fila{min-height:48px}
+.visitaT{display:flex;align-items:stretch;gap:10px;width:100%;margin-bottom:6px;padding:8px 10px 8px 8px;border-radius:14px;text-align:left;background:linear-gradient(180deg,var(--card1),var(--card2));border:1px solid var(--linea)}
+.fechaT{flex:none;width:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:10px;background:color-mix(in srgb,var(--acento) 14%,transparent);color:var(--acento)}
+.fechaT b{font:900 20px/1 var(--fTitulo)}
+.fechaT span{margin-top:2px;font:600 11px var(--fDato);color:var(--tinta);opacity:.8}
+.cuerpoV{flex:1;min-width:0}
+.cuerpoV h4{font:700 13px var(--fTitulo);text-transform:var(--may);letter-spacing:var(--esp);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cuerpoV p{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.cuerpoV p i{font:600 11px/18px var(--fTexto);font-style:normal;padding:0 7px;border-radius:9px;background:color-mix(in srgb,var(--tinta) 9%,transparent)}
+.cuerpoV small{display:block;margin-top:4px;font:600 11px var(--fDato);color:var(--tenue)}
+.impV{flex:none;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:6px}
+.impV b{font:800 14px var(--fDato)}
+.impV .chip{min-height:24px;padding:0 8px;font-size:11px;gap:4px}
+.impV .chip .ic{width:13px;height:13px}
+
+/* garaje */
+.garajeB{display:block;text-align:left;padding:2px 4px 2px 0}
+.garajeB .marca{display:flex;align-items:center;gap:4px}
+.garajeB .marca .ic{width:14px;height:14px;stroke-width:2.4}
+.garaje{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.vehG{display:flex;align-items:center;gap:11px;width:100%;min-height:54px;padding:0 10px 0 8px;border-radius:14px;text-align:left;background:linear-gradient(180deg,var(--card1),var(--card2));border:1px solid var(--linea)}
+.vehG.on{border-color:color-mix(in srgb,var(--acento) 70%,transparent);box-shadow:0 0 16px color-mix(in srgb,var(--acento) 16%,transparent)}
+.vehG .ico{flex:none;width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:rgba(255,255,255,.08)}
+.vehG.on .ico{background:var(--acento);color:#14100a}
+.vehG .ico .ic{width:22px;height:22px}
+.vehG div{flex:1;min-width:0}
+.vehG h4{font:700 13.5px var(--fTitulo);text-transform:var(--may);letter-spacing:var(--esp)}
+.vehG p{margin-top:2px;font:500 11.5px var(--fTexto);color:var(--tenue);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* silueta (vehículos sin modelo 3D) */
+.escenario.plano .poster,.escenario.plano canvas,.escenario.plano>.zonas3d{display:none}
+.silueta{position:absolute;inset:0;z-index:3;--pintura:#5B6B82}
+.silueta[hidden]{display:none}
+.silueta svg{position:absolute;left:4%;right:4%;top:22%;bottom:16%;width:92%;height:62%;filter:drop-shadow(0 14px 26px rgba(0,0,0,.55))}
+.silueta::before{content:"";position:absolute;left:8%;right:8%;top:30%;bottom:10%;background:radial-gradient(50% 50% at 50% 60%,color-mix(in srgb,var(--pintura) 26%,transparent),transparent 70%);pointer-events:none}

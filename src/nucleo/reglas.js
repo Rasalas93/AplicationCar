@@ -11,7 +11,7 @@ export function fechaPorKm(km, odometro, kmDia) {
 
 /** Calcula un vencimiento de una tarea del plan. */
 export function vencimiento(tarea, { hoy, odometro, kmDia, horizonte }) {
-  const r = tarea.regla || {}, base = { clave: tarea.clave, titulo: tarea.titulo, zona: tarea.zona || null, detalle: tarea.detalle, fuente: tarea.fuente, ejemplo: !!tarea.ejemplo, gasto: tarea.gasto || null };
+  const r = tarea.regla || {}, base = { clave: tarea.clave, titulo: tarea.titulo, zona: tarea.zona || null, detalle: tarea.detalle, fuente: tarea.fuente, ejemplo: !!tarea.ejemplo, gasto: tarea.gasto || null, taller: !!tarea.intervalo };
   if (r.tipo === 'sin-dato') return { ...base, estado: ESTADOS.A_VERIFICAR, nivel: NIVEL.AMBAR, vence: null, faltan: null, pendiente: tarea.pendiente || 'Falta dato' };
   if (r.tipo === 'vigente') return { ...base, estado: ESTADOS.AL_DIA, nivel: NIVEL.VERDE, vence: null, faltan: null };
   let fecha = r.fecha || null, por = fecha ? 'fecha' : null;
