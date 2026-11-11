@@ -18,7 +18,7 @@ const FICHA = () => [
 
 export const TIPOS = Object.freeze({
   coche: {
-    nombre: 'Coche', presentador: 'silueta', color: '#5B6B82', kmDia: 33,
+    nombre: 'Coche', presentador: 'silueta', color: '#1B3F86', colorNombre: 'Azul Cobalto', kmDia: 33,
     tareas: () => [
       tarea('aceite', 'Aceite y filtros', 'motor', '1 año o 15.000 km', { meses: 12, km: 15000 }, 'RACE [M1]: 1 año o 15.000 km; manda el manual'),
       tarea('frenos', 'Líquido de frenos', 'frenos', 'Cada 2 años', { meses: 24 }, 'RACE [M3]: cada 2 años'),
@@ -28,7 +28,7 @@ export const TIPOS = Object.freeze({
     consejo: { fuente: 'DGT', texto: 'Revisa la presión de los neumáticos en frío una vez al mes.' }
   },
   moto: {
-    nombre: 'Moto', presentador: 'silueta', color: '#C8402E', kmDia: 14,
+    nombre: 'Moto', presentador: 'silueta', color: '#D4D4CF', colorNombre: 'Blanco Perla', kmDia: 14,
     tareas: () => [
       tarea('aceite', 'Aceite y filtro', 'motor', '1 año o 6.000 km', { meses: 12, km: 6000 }, 'Orientativo para motos; manda el manual'),
       tarea('cadena', 'Kit de arrastre', 'transmision', 'Engrase cada 1.000 km · cambio unos 20.000 km', { km: 20000 }, 'Orientativo para motos; manda el manual'),
@@ -44,8 +44,8 @@ export const TIPOS = Object.freeze({
 export function vehiculoDesdePlantilla(d, base = {}) {
   const T = TIPOS[d.tipo] || TIPOS.coche;
   return {
-    id: d.id, tipo: d.tipo, etiqueta: d.etiqueta, presentador: T.presentador, marca: d.marca || '', modelo: d.modelo || T.nombre, version: d.version || '', anio: d.anio || null, matricula: '',
-    motor: null, pintura: { nombre: '', color: d.color || T.color, confirmado: false },
+    id: d.id, tipo: d.tipo, etiqueta: d.etiqueta, presentador: T.presentador, marca: d.marca || '', modelo: d.modelo || T.nombre, version: d.version || '', anio: d.anio || null, matricula: d.matricula || '',
+    motor: null, pintura: { nombre: d.color ? '' : T.colorNombre, color: d.color || T.color, confirmado: false },
     odometro: { km: d.km || 0, fecha: d.creado, fuente: 'Anotado a mano' }, kmDia: T.kmDia, kmDiaFuente: 'Ejemplo hasta tener dos lecturas',
     consumo: null, tareas: T.tareas(), gastos: [], programados: [], precioLitro: base.precioLitro || null,
     documentos: DOCUMENTOS(), ficha: FICHA(), consejo: T.consejo, propio: true

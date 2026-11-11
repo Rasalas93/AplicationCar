@@ -56,10 +56,13 @@ export function crearGaraje({ semilla, repo, archivos }) {
       if (!etiqueta || etiqueta.length > 40) return { error: 'etiqueta' };
       if (c.km != null && !(c.km >= 0)) return { error: 'km' };
       if (c.anio != null && !(c.anio >= 1900 && c.anio <= 2100)) return { error: 'anio' };
+      if (c.color && !/^#[0-9a-f]{6}$/i.test(c.color)) return { error: 'color' };
+      const matricula = (c.matricula || '').trim().toUpperCase().replace(/\s+/g, ' ');
+      if (matricula && !/^[A-Z0-9 -]{2,10}$/.test(matricula)) return { error: 'matricula' };
       const usados = new Set(this.lista().map(v => v.id));
       let id = slug(etiqueta), n = 2;
       while (usados.has(id)) id = `${slug(etiqueta)}-${n++}`;
-      const d = { id, tipo: c.tipo, etiqueta, marca: (c.marca || '').trim(), modelo: (c.modelo || '').trim(), anio: c.anio || null, km: c.km || 0, creado: hoy };
+      const d = { id, tipo: c.tipo, etiqueta, marca: (c.marca || '').trim(), modelo: (c.modelo || '').trim(), anio: c.anio || null, km: c.km || 0, creado: hoy, ...(c.color && { color: c.color.toUpperCase() }), ...(matricula && { matricula }) };
       repo.guardar('garaje', [...propios(), d]);
       return { vehiculo: d };
     }
